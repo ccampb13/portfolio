@@ -19,17 +19,22 @@ function load(app, fn){
   var projects = traceur.require(__dirname + '/../routes/projects.js');
 
   app.all('*', dbg, users.lookup);
+
   app.get('/', dbg, home.index);
   app.get('/about', dbg, home.about);
   app.get('/contact', dbg, home.contact);
   app.get('/resume', dbg, home.resume);
+
   app.get('/login', dbg, users.login);
   app.post('/login', dbg, users.authenticate);
-  app.get('/project', dbg, projects.index);
   app.get('/logout', dbg, users.logout);
+
+  app.get('/project', dbg, projects.index);
+  app.get('/project/show/:projectId', dbg, projects.show);
   app.get('/project/new', dbg, projects.new);
   app.post('/project', dbg, projects.create);
-  app.get('/project/show/:projectId/', dbg, projects.show);
+  app.delete('/project/:projectId', dbg, projects.destroy);
+
 
   console.log('Routes Loaded');
   fn();

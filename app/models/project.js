@@ -1,6 +1,7 @@
 'use strict';
 
 var projects = global.nss.db.collection('projects');
+var Mongo = require('mongodb');
 
 class Project {
   constructor(project){
@@ -20,9 +21,18 @@ class Project {
   }
 
   static findById(projectId, fn){
-    projects.findOne(projectId, (err, p)=>{
-      fn(p);
+    projects.findOne(projectId, (err, project)=>{
+      fn(project);
     });
+  }
+
+  static deleted(projectId, fn){
+    projectId = Mongo.ObjectID(projectId);
+    projects.remove({_id:projectId}, fn);
+  }
+
+  static findAll(fn){
+    projects.find().toArray((e,r)=>fn(r));
   }
 }
 

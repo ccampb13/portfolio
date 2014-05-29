@@ -2,13 +2,13 @@ extends ../shared/template
 
 block content
   h1 Project
-  
+
   h1= title
-  a.gitURL(href='http://#{p.gitURL}')= p.gitURL
-  a.appURL(href='http://#{p.appURL}') View App
-  .date= p.date
-  p.description= p.description
-  each photo in p.photos
+  a.gitURL(href='#{project.gitURL}')= project.gitURL
+  a.appURL(href='#{project.appURL}') View App
+  .date= project.date
+  p.description= project.description
+  each photo in project.photos
     img(src='#{photo}')
 
 

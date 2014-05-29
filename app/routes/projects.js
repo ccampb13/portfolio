@@ -8,7 +8,9 @@ var fs = require('fs');
 var Mongo = require('mongodb');
 
 exports.index = (req, res)=>{
-  res.render('projects/index', {title: 'Projects: List'});
+  Project.findAll(projects=>{
+    res.render('projects/index', {projects: projects, title: 'Projects: List'});
+  });
 };
 
 exports.new = (req, res)=>{
@@ -21,11 +23,11 @@ exports.create = (req, res)=>{
 
   form.parse(req, (err, fields, files)=>{
     var project = {};
-    project.title = fields.title[0];
-    project.description = fields.description[0];
-    project.tags = fields.tags[0].split(',').map(x=>x.trim());
-    project.gitURL = fields.gitURL[0];
-    project.appURL = fields.appURL[0];
+    project.title = fields.title[0].trim();
+    project.description = fields.description[0].trim();
+    project.tags = fields.tags[0].split(',').map(t=>t.toLowerCase()).map(x=>x.trim());
+    project.gitURL = fields.gitURL[0].trim();
+    project.appURL = fields.appURL[0].trim();
     project.date = new Date(fields.date[0]);
     project.userId = userId;
     console.log(fields);
@@ -68,8 +70,13 @@ exports.create = (req, res)=>{
 
 exports.show = (req,res)=>{
   var projectId = Mongo.ObjectID(req.params.projectId);
-  Project.findById(projectId, p=>{
-    console.log(p);
-    res.render('projects/show', {p:p, title:`${p.title}`});
+  Project.findById(projectId, project=>{
+    console.log(project);
+    res.render('projects/show', {project:project, title:`${project.title}`});
   });
+};
+
+exports.destroy = (req,res)=>{
+    Project.deleted(req.params.projectId, ()=>res.redirect('/project'));
+
 };
