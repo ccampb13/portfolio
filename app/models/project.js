@@ -18,6 +18,12 @@ class Project {
       fn();
     });
   }
+
+  static findById(projectId, fn){
+    projects.findOne(projectId, (err, p)=>{
+      fn(p);
+    });
+  }
 }
 
 

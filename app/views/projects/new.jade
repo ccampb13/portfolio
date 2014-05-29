@@ -1,14 +1,17 @@
 extends ../shared/template
 
 block content
-  h1 New Project
+  h1 Add Project
 
-  form(action='/project', method='POST', enctype='multipart/form-data')
-    input(type='text', name='title', placeholder='Title')
-    textarea(name='description', placeholder='Description')
-    input(type='text', name='tags', placeholder='Tags')
-    input(type='text', name='gitURL', placeholder='Git URL')
-    input(type='text', name='appURL', placeholder='App URL')
-    input(type='date', name='date', value='Date')
-    input(type='file', name='photos', multiple=true)
-    button Add Project
+  .add-project
+    form(action='/project', method='POST', enctype='multipart/form-data')
+      input(type='text', name='title', placeholder='Title')
+      textarea(name='description', placeholder='Description')
+      input(type='text', name='tags', placeholder='Tags')
+      input(type='text', name='gitURL', placeholder='Git URL')
+      input(type='text', name='appURL', placeholder='App URL')
+      input(type='date', name='date', value='Date')
+      input(type='file', name='photos', multiple=true)
+      button Add Project
+
+block scripts

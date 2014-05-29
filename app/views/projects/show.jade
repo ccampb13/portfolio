@@ -1,0 +1,17 @@
+extends ../shared/template
+
+block content
+  h1 Project
+  
+  h1= title
+  a.gitURL(href='http://#{p.gitURL}')= p.gitURL
+  a.appURL(href='http://#{p.appURL}') View App
+  .date= p.date
+  p.description= p.description
+  each photo in p.photos
+    img(src='#{photo}')
+
+
+
+
+block scripts

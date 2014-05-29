@@ -29,6 +29,7 @@ function load(app, fn){
   app.get('/logout', dbg, users.logout);
   app.get('/project/new', dbg, projects.new);
   app.post('/project', dbg, projects.create);
+  app.get('/project/show/:projectId/', dbg, projects.show);
 
   console.log('Routes Loaded');
   fn();
